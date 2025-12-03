@@ -34,7 +34,7 @@ public class StompController {
     public void sendMessage(@DestinationVariable Long roomId, ChatMessageReqDto chatMessageReqDto) {
 
         log.info("message: {}", chatMessageReqDto.getMessage());
-        chatService.saveMessage(roomId, chatMessageReqDto);
+        chatService.saveMessage(roomId, chatMessageReqDto);   //메세지 db 에 저장하기
         messageTemplate.convertAndSend("/topic/"+roomId, chatMessageReqDto);  // @SendTo("/topic/{roomId}") 와 완전히 같은뜻임
     }
 }

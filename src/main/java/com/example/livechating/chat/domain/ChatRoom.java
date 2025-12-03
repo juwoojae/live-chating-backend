@@ -24,7 +24,7 @@ public class ChatRoom  extends BaseTimeEntity {
     private String name;
 
     @Builder.Default
-    private String isGroupChat="N";
+    private String isGroupChat="N";   //디폴트 값은  N, 이것을 Y 로 바꾸는 형태
 
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.REMOVE)
     private List<ChatParticipant> chatParticipants = new ArrayList<>();
