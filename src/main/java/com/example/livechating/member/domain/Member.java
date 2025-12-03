@@ -14,12 +14,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class Member extends BaseTimeEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String name;
-	@Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
 	private String email;
 	private String password;
 

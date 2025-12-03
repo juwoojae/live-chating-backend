@@ -25,7 +25,7 @@ public class StompHandler implements ChannelInterceptor {
 
         final StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class); //header 를 다룰수 있는 객체
 
-        if(StompCommand.CONNECT == accessor.getCommand()) {
+        if (StompCommand.CONNECT == accessor.getCommand()) {
             log.info("Connect 요청시 토큰 유효성 검증하기");
             String bearerToken = accessor.getFirstNativeHeader("Authorization");
             String token = bearerToken.substring(7); //토큰 추출
@@ -37,6 +37,6 @@ public class StompHandler implements ChannelInterceptor {
                     .getBody();
             log.info("타당한 토큰 ");
         }
-        return  message;
+        return message;
     }
 }

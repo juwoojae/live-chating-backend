@@ -1,6 +1,7 @@
 package com.example.livechating.chat.controller;
 
 import com.example.livechating.chat.dto.ChatMessageReqDto;
+import com.example.livechating.chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Controller;
 public class StompController {
 
     private final SimpMessageSendingOperations messageTemplate;
+
+    private final ChatService chatService;
 //   방법 1.  MessageMapping(수신) 과  sendTo(topic 에 메세지 전달) 한꺼번에 처리
 
 //    @MessageMapping("/{roomId}")  //클라이언트에서 특정 publish/roomId 형태로 메세지를 발행시 MessageMapping 수신
@@ -29,7 +32,9 @@ public class StompController {
 
     @MessageMapping("/{roomId}")
     public void sendMessage(@DestinationVariable Long roomId, ChatMessageReqDto chatMessageReqDto) {
+
         log.info("message: {}", chatMessageReqDto.getMessage());
+        chatService.saveMessage(roomId, chatMessageReqDto);
         messageTemplate.convertAndSend("/topic/"+roomId, chatMessageReqDto);  // @SendTo("/topic/{roomId}") 와 완전히 같은뜻임
     }
 }

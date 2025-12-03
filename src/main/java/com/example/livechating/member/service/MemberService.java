@@ -21,46 +21,46 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
 
-	private final MemberRepository memberRepository;
-	private final PasswordEncoder passwordEncoder;
+    private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
-	public Member create(MemberSaveReqDto memberSaveReqDto){
-		//        이미 가입되어 있는 이메일 검증
-		if(memberRepository.findByEmail(memberSaveReqDto.getEmail()).isPresent()){
-			throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
-		}
-		Member newMember = Member.builder()
-			.name(memberSaveReqDto.getName())
-			.email(memberSaveReqDto.getEmail())
-			.password(passwordEncoder.encode(memberSaveReqDto.getPassword()))
-			.build();
-		Member member = memberRepository.save(newMember);
+    public Member create(MemberSaveReqDto memberSaveReqDto) {
+        //        이미 가입되어 있는 이메일 검증
+        if (memberRepository.findByEmail(memberSaveReqDto.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
+        }
+        Member newMember = Member.builder()
+                .name(memberSaveReqDto.getName())
+                .email(memberSaveReqDto.getEmail())
+                .password(passwordEncoder.encode(memberSaveReqDto.getPassword()))
+                .build();
+        Member member = memberRepository.save(newMember);
 
-		return member;
-	}
+        return member;
+    }
 
-	public Member login(MemberLoginReqDto memberLoginReqDto){
+    public Member login(MemberLoginReqDto memberLoginReqDto) {
 
-		Member member = memberRepository.findByEmail(memberLoginReqDto.getEmail())
-			.orElseThrow(()->new EntityNotFoundException("존재하지 않는 이메일입니다."));
-		if(!passwordEncoder.matches(memberLoginReqDto.getPassword(), member.getPassword())){
-			throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-		}
-		return member;
-	}
+        Member member = memberRepository.findByEmail(memberLoginReqDto.getEmail())
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 이메일입니다."));
+        if (!passwordEncoder.matches(memberLoginReqDto.getPassword(), member.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+        return member;
+    }
 
-	public List<MemberListResDto> findAll(){
+    public List<MemberListResDto> findAll() {
 
-		List<Member> members = memberRepository.findAll();
-		List<MemberListResDto> memberListResDtos = new ArrayList<>();
-		for (Member m : members){
-			MemberListResDto memberListResDto = new MemberListResDto();
-			memberListResDto.setId(m.getId());
-			memberListResDto.setEmail(m.getEmail());
-			memberListResDto.setName(m.getName());
-			memberListResDtos.add(memberListResDto);
-		}
-		return memberListResDtos;
-	}
+        List<Member> members = memberRepository.findAll();
+        List<MemberListResDto> memberListResDtos = new ArrayList<>();
+        for (Member m : members) {
+            MemberListResDto memberListResDto = new MemberListResDto();
+            memberListResDto.setId(m.getId());
+            memberListResDto.setEmail(m.getEmail());
+            memberListResDto.setName(m.getName());
+            memberListResDtos.add(memberListResDto);
+        }
+        return memberListResDtos;
+    }
 }
