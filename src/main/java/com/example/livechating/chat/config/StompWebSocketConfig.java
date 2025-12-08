@@ -30,9 +30,9 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
      */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-//      /publish/1    메세지 발행 조건
+//      /publish/1    메세지 발행 조건, 클라이언트에서 서버로 들어오는 메세지 진입로(prefix) 를 설정
 //      /publish로 시작하는 url 패턴으로 메시지가 발행 되면 @Controller 객체의 @MessaMapping이 붙은 메서드로 라우팅된다.
-        registry.setApplicationDestinationPrefixes("/publish");
+        registry.setApplicationDestinationPrefixes("/publish"); //실제 내부 매핑에선 접두어가 제거된다.
 //      /topic/1 형태로 메세지를 수신(subscribe) 해야 함을 설정 room (구독 하기)
         registry.enableSimpleBroker("/topic");
     }
