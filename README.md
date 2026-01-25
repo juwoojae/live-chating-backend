@@ -160,7 +160,7 @@ Message Payload (`ChatMessageDto`)
 - `setApplicationDestinationPrefixes("/publish")`는 서버 진입점, `/topic`은 브로커 구독 경로로 분리된다.
 - `@MessageMapping`은 STOMP SEND를 수신하는 서버 핸들러이며, 구독 경로는 `SimpMessageSendingOperations`로 전파된다.
 - Redis Pub/Sub은 영속 저장이 없고, 구독 중인 클라이언트에만 전달된다(오프라인 복구 불가).
-- 멀티 인스턴스 환경에서 Redis Pub/Sub은 브로드캐스트를 공유해 스케일 아웃을 가능하게 한다.
+- 멀티 인스턴스 환경에서 Redis Pub/Sub은 브로드캐스트를 공유해 **스케일 아웃**을 가능하게 한다.
 - SockJS는 WebSocket이 막힌 환경에서 HTTP 기반 대체 전송을 제공한다.
 - STOMP CONNECT의 헤더로 토큰을 검증해야 하며, WebSocket은 일반 HTTP 필터 체인을 직접 타지 않는다.
 
