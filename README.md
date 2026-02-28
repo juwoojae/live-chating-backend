@@ -1,7 +1,6 @@
 # Live Chatting Backend
 
-WebSocket, STOMP, Redis Pub/Sub을 활용한 실시간 채팅 백엔드 프로젝트 입니다.
-
+WebSocket, STOMP, Redis Pub/Sub을 활용한 실시간 채팅 백엔드 프로젝트 입니다. 
 ## Tech Stack
 
 - `Spring Boot 3.5.8`
